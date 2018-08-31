@@ -48,7 +48,12 @@ def angle_between(v1, v2):
 
 
 def do_plane_fit(local_points):
-    """ Fit a flat plane to a particle and its nearest neighbours. This code shamelessly ripped from stack exchange """
+    """ Fit a flat plane to a particle and its nearest neighbours using a least squares fit.
+
+    This code shamelessly ripped from stack exchange:
+    https://stackoverflow.com/questions/20699821/find-and-draw-regression-plane-to-a-set-of-points/20700063#20700063
+    """
+
     tmp_A = []
     tmp_b = []
     for i in range(len(local_points[:, 0])):
