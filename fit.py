@@ -8,10 +8,9 @@ def main(do_plot_plane=1, do_plot__normal_vectors=1):
 
     central_points = get_central_points(data)
 
-    for point_number in central_points:
-        selected_point_coordinate = data[point_number]
+    for selected_point_coordinate in central_points:
         inverse_mask, neighbour_list = get_nearest_neighbours(data, selected_point_coordinate)
-        ax = plotting.plot_raw_data(data, neighbour_list, inverse_mask)
+        ax = plotting.plot_raw_data(data, central_points, neighbour_list, inverse_mask)
         fit = do_plane_fit(neighbour_list)
         normal = get_plane_normal(selected_point_coordinate, fit)
         if do_plot_plane:
@@ -28,10 +27,11 @@ def get_central_points(data):
     x = data[:, 0]
     y = data[:, 1]
     z = data[:, 2]
-    y_mask = y.min + 50 < data[:, 1] < y.max - 50
-    z_mask = z.min + 30 < data[:, 2] < z.max - 30
+    y_mask = np.logical_and(data[:, 1] > (y.min() + 50), data[:, 1] < (y.max() - 50))
+    z_mask = np.logical_and(data[:, 2] > (z.min() + 30), data[:, 2] < (z.max() - 30))
     mask = np.logical_and(y_mask, z_mask)
     return data[mask, :]
+
 
 def get_plane_normal(start_point, fit):
     """Calculate normal vector at one point on the plane"""

@@ -21,10 +21,11 @@ def plot_plane(ax, fit, selected_point_coordinate):
     ax.plot_wireframe(x, y, z, color='k')
 
 
-def plot_raw_data(data, local_points, inverse_mask):
+def plot_raw_data(data, central_points, local_points, inverse_mask):
     # plot data points that are part of the fit in one colour and the rest in another colour
     ax = plt.subplot(111, projection='3d')
     ax.scatter(local_points[:, 0], local_points[:, 1], local_points[:, 2], color='b')
+    ax.scatter(central_points[:, 0], central_points[:, 1], central_points[:, 2], color='g')
     ax.scatter(data[inverse_mask, 0], data[inverse_mask, 1], data[inverse_mask, 2], color='r')
     ax.set_xlabel('x')
     ax.set_ylabel('y')
