@@ -3,23 +3,8 @@ import numpy as np
 from mpl_toolkits.mplot3d import Axes3D
 
 
-def plot_normal_vector(ax, fit, start_point):
-    """Given an axes, plot a vector on it starting at location provided"""
-    point_1 = np.array([start_point[0], start_point[1], fit[0] * start_point[0] + fit[1] * start_point[1] + fit[2]])
-    point_2 = np.array([start_point[0] + 50, start_point[1], fit[0] * (start_point[0] + 50) + fit[1] * start_point[1] + fit[2]])
-    point_3 = np.array([start_point[0], start_point[1] + 50, fit[0] * start_point[0] + fit[1] * (start_point[1] + 50) + fit[2]])
-    vector_1 = point_2 - point_1
-    vector_2 = point_3 - point_1
-    normal = np.cross(vector_1, vector_2)
-
-    #ax.scatter(point_1[0], point_1[1], point_1[2], color='g', s=500)
-    #ax.scatter(point_2[0], point_2[1], point_2[2], color='g', s=500)
-    #ax.scatter(point_3[0], point_3[1], point_3[2], color='g', s=500)
-
-    #ax.quiver(start_point[0], start_point[1], start_point[2],
-    #          vector_1[0], vector_1[1], vector_1[2], length=200, normalize=True, linewidths=5, color=[1, 0, 0])
-    #ax.quiver(start_point[0], start_point[1], start_point[2],
-    #          vector_2[0], vector_2[1], vector_2[2], length=200, normalize=True, linewidths=5, color=[0, 1, 0])
+def plot_normal_vector(ax, start_point, normal):
+    """Given an axes, calculate the normal vector and plot it starting at location provided"""
     ax.quiver(start_point[0], start_point[1], start_point[2],
               normal[0], normal[1], normal[2], length=200, normalize=True, linewidths=5, color=[0, 0, 1])
 
