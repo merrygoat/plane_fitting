@@ -18,13 +18,8 @@ def main(do_plot_plane=1, do_plot__normal_vectors=1):
         if do_plot__normal_vectors:
             plotting.plot_normal_vector(ax, fit, selected_point_coordinate)
         if do_plot_plane or do_plot__normal_vectors:
+            plotting.set_equal_axes(ax, data)
             plt.show()
-        neighbour_vectors = get_neighbour_vectors(selected_point_coordinate, neighbour_list)
-
-
-def get_neighbour_vectors(particle_coordinates, neighbour_coordinates):
-    """ Get the vectors between a particle and its neighbours """
-    return neighbour_coordinates - particle_coordinates
 
 
 def unit_vector(vector):
@@ -33,17 +28,10 @@ def unit_vector(vector):
 
 
 def angle_between(v1, v2):
-    """ Returns the angle in radians between vectors 'v1' and 'v2'::
-
-            >>> angle_between((1, 0, 0), (0, 1, 0))
-            1.5707963267948966
-            >>> angle_between((1, 0, 0), (1, 0, 0))
-            0.0
-            >>> angle_between((1, 0, 0), (-1, 0, 0))
-            3.141592653589793
-    """
-    v1_u = unit_vector(v1)
-    v2_u = unit_vector(v2)
+    """ Returns the angle in radians between vectors 'v1' and 'v2' """
+    # First convert to unit vectors
+    v1_u = v1 / np.linalg.norm(v1)
+    v2_u = v2 / np.linalg.norm(v2)
     return np.arccos(np.clip(np.dot(v1_u, v2_u), -1.0, 1.0))
 
 
